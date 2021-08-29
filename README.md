@@ -8,6 +8,8 @@ The AWS CLI conveniently collates automatically. If you naively translate an AWS
 
 Use this wrapper to collate automatically whenever it would be necessary to get the full result.
 
+It should be a drop-in replacement for a normal client.
+
 ## Example
 
 To use it, just wrap a normal boto3 client in with the CollatorClient constructor.
