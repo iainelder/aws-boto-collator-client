@@ -12,29 +12,28 @@ It should be a drop-in replacement for a normal client.
 
 ## Example
 
-To use it, just wrap a normal boto3 client in with the CollatorClient constructor.
+Given an AWS organization with more than 20 accounts, and a file count_accounts.py with the following content:
 
 ```python
 import boto3
 
-from collator_client import CollatorClient
+from boto_collator_client import CollatorClient
 
-org = boto3.Session().client("organizations")
+boto_org = boto3.Session().client("organizations")
+boto_result = len(boto_org.list_accounts()["Accounts"])
+print(f"Boto result: {boto_result}")
 
-collated_org = CollatorClient(org)
-
-len(org.list_accounts()["Accounts"])
-
-len(collated_org.list_accounts()["Accounts"])
+collator_org = CollatorClient(boto_org)
+collator_result = len(collator_org.list_accounts()["Accounts"])
+print(f"Collator result: {collator_result}")
 ```
 
-Example output in IPython in an organization with more than 20 accounts:
+You should see output like this:
 
 ```text
-In [5]: len(org.list_accounts()["Accounts"])
-Out[5]: 20
-
-In [6]: len(collated_org.list_accounts()["Accounts"])
-Out[6]: 45
+$ python count_accounts.py
+Boto result: 20
+Collator result: 66
 ```
 
+The collator result will match the number of accounts in the org no matter how many pages of results there are.
