@@ -1,3 +1,5 @@
+__version__ = '0.1.1'
+
 class CollatorClient(object):
 
     def __init__(self, client):
