@@ -10,6 +10,14 @@ Use this wrapper to collate automatically whenever it would be necessary to get 
 
 It should be a drop-in replacement for a normal client.
 
+## Installation
+
+The collator client is published to PyPI as boto-collator-client, so you can install it with pip or anything equivalent.
+
+```bash
+pip install boto-collator-client
+```
+
 ## Example
 
 Given an AWS organization with more than 20 accounts, and a file count_accounts.py with the following content:
@@ -37,3 +45,12 @@ Collator result: 66
 ```
 
 The collator result will match the number of accounts in the org no matter how many pages of results there are.
+
+## Development
+
+Use Poetry to build and publish a new version to PyPI:
+
+```bash
+poetry build
+poetry publish
+```
