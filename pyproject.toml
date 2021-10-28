@@ -5,10 +5,11 @@ description = "A boto3 client wrapper that collates each paginated API call into
 authors = ["Iain Samuel McLean Elder <iain@isme.es>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
 boto3 = "^1.19.5"
+isort = "^5.9.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
