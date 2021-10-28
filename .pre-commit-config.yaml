@@ -21,3 +21,11 @@ repos:
         entry: poetry run yamllint .
         pass_filenames: false
         language: system
+  - repo: local
+    hooks:
+      - id: system
+        name: Codespell commit message
+        entry: poetry run codespell .git/COMMIT_EDITMSG
+        pass_filenames: false
+        language: system
+        stages: [commit-msg]
