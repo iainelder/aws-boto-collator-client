@@ -8,7 +8,7 @@ authors = ["Iain Samuel McLean Elder <iain@isme.es>"]
 python = "^3.6"
 
 [tool.poetry.dev-dependencies]
-boto3 = "*"
+boto3 = "^1.19.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
