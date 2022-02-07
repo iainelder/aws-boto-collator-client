@@ -54,3 +54,7 @@ Use Poetry to build and publish a new version to PyPI:
 poetry build
 poetry publish
 ```
+
+## See also
+
+[BBP - Better Boto Paginator](https://github.com/mdavis-xyz/bbp) provides a neat way to iterate over all the resources from a paginated boto3 API.
