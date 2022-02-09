@@ -22,7 +22,9 @@ def iam_client(request):
         yield iam
 
 
-def list_users_responses():
+def list_users_stubs():
+    """Stubs for the list_users method, a paginated API."""
+
     return (
         "list_users",
         [
@@ -56,25 +58,23 @@ def list_users_responses():
     )
 
 
-def list_open_id_connect_providers_responses():
+def list_open_id_connect_providers_stubs():
+    """Stubs for the list_open_id_connect_providers method, an unpaginated API."""
+
     return (
         "list_open_id_connect_providers",
         [{"OpenIDConnectProviderList": [{"Arn": "Arn11111111111111111"}]}],
     )
 
 
-@pytest.mark.parametrize(
-    "iam_client", [pytest.param(list_users_responses, id="ListUsers")], indirect=True
-)
-def test_boto3_client_gets_first_page_of_paginated_api(iam_client):
+@pytest.mark.parametrize("iam_client", [pytest.param(list_users_stubs)], indirect=True)
+def test_boto3_client_gets_first_page_only(iam_client):
     response = iam_client.list_users()
     assert [u["UserName"] for u in response["Users"]] == ["User1"]
 
 
-@pytest.mark.parametrize(
-    "iam_client", [pytest.param(list_users_responses, id="ListUsers")], indirect=True
-)
-def test_collator_gets_all_pages_of_paginated_api(iam_client):
+@pytest.mark.parametrize("iam_client", [pytest.param(list_users_stubs)], indirect=True)
+def test_collator_gets_all_pages(iam_client):
     cc = CollatorClient(iam_client)
     response = cc.list_users()
     assert [u["UserName"] for u in response["Users"]] == ["User1", "User2"]
@@ -82,14 +82,10 @@ def test_collator_gets_all_pages_of_paginated_api(iam_client):
 
 @pytest.mark.parametrize(
     "iam_client",
-    [
-        pytest.param(
-            list_open_id_connect_providers_responses, id="ListOpenIDConnectProviders"
-        )
-    ],
+    [pytest.param(list_open_id_connect_providers_stubs)],
     indirect=True,
 )
-def test_collator_gets_response_of_unpaginated_api(iam_client):
+def test_collator_gets_unpaginated(iam_client):
     cc = CollatorClient(iam_client)
     response = cc.list_open_id_connect_providers()
     assert [p["Arn"] for p in response["OpenIDConnectProviderList"]] == [
