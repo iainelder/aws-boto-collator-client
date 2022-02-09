@@ -29,7 +29,11 @@ def _has_paginated_api(client, method):
     This wrapper is necessary because a client's can_paginate returns a
     KeyError when the input is not an API method.
     """
-    return method in client.meta.method_to_api_mapping and client.can_paginate(method)
+    # return method in client.meta.method_to_api_mapping and client.can_paginate(method)
+    try:
+        return client.can_paginate(method)
+    except KeyError:
+        return False
 
 
 def _build_collator(paginator):
