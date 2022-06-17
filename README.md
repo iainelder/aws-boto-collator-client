@@ -14,7 +14,7 @@ It should be a drop-in replacement for a normal client.
 
 I don't use this library any more because it doesn't work with type hints and I don't see any easy way to make it so.
 
-Instead I replicate its functionality where I would use it with a list comprehension. Here's an example using the Security Hub DescribeStandards API.
+Instead I use code like the following example that collates API pages with a typed result. Mypy infers the result of the below to be `List[StandardTypeDef]`.
 
 ```python
 sh = session.client("securityhub")
