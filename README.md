@@ -10,6 +10,21 @@ Use this wrapper to collate automatically whenever it would be necessary to get 
 
 It should be a drop-in replacement for a normal client.
 
+## Deprecation Notice
+
+I don't use this library any more because it doesn't work with type hints and I don't see any easy way to make it so.
+
+Instead I replicate its functionality where I would use it with a list comprehension. Here's an example using the Security Hub DescribeStandards API.
+
+```python
+sh = session.client("securityhub")
+available_standards = [
+    standard
+    for page in sh.get_paginator("describe_standards").paginate()
+    for standard in page["Standards"]
+]
+```
+
 ## Installation
 
 The collator client is published to PyPI as boto-collator-client, so you can install it with pip or anything equivalent.
